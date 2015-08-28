@@ -17,7 +17,7 @@ var logger = {
 		var args = _.toArray(arguments)
 			.map(function(arg){
 				if(typeof arg == 'object'){
-					var string = JSON.strinify(arg,null,2);
+					var string = JSON.stringify(arg,null,2);
 					return tag + '  ' + string.cyan
 				} else {
 					return tag + '  ' + arg.cyan;
@@ -39,3 +39,5 @@ var logger = {
 	}
 
 };
+
+module.exports = logger;

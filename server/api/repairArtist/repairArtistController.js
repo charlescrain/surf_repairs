@@ -1,16 +1,14 @@
-var Surfer = require('./surferModel');
+var RepairArtist = require('./repairArtistModel');
 var _ = require('lodash');
 
-//TODO: 8/23/15 Auth not happening as of yet
-//var signToken = require('../../auth/auth').signToken;
 
 exports.params = function(req, res, next, id){
-	Surfer.findById(id)
-		.then(function(surfer){
-			if(!surfer) {
-				next(new Error('No surfer by that id'))
+	RepairArtist.findById(id)
+		.then(function(repairArtist){
+			if(!repairArtist) {
+				next(new Error('No repairArtist by that id'))
 			} else {
-				req.surfer = surfer;
+				req.repairArtist = repairArtist;
 				next();
 			}
 		}, function(err) {
@@ -19,9 +17,9 @@ exports.params = function(req, res, next, id){
 };
 
 exports.get = function(req, res, next) {
-	Surfer.find({})
-		.then(function(surfers){
-			res.json(surfers);
+	RepairArtist.find({})
+		.then(function(repairArtists){
+			res.json(repairArtists);
 		},function (err){
 			console.log(err);
 			next(err);
@@ -30,41 +28,41 @@ exports.get = function(req, res, next) {
 
 exports.getOne = function(req, res, next){
 	// .params handle DB req with ID
-	var surfer = req.surfer;
-	res.json(surfer);
+	var repairArtist = req.repairArtist;
+	res.json(repairArtist);
 };
 
 exports.put = function(req, res, next){
-	var surfer = req.surfer;
+	var repairArtist = req.repairArtist;
 	var update = req.body;
 
-	_.merge(surfer, update);
-	surfer.save(function(err){
+	_.merge(repairArtist, update);
+	repairArtist.save(function(err){
 		if(err){
 			next(err);
 		}
-		res.json(surfer);
+		res.json(repairArtist);
 	});
 	//TODO: 8/25/15 Will need to check if password was changed
 };
 
 exports.post = function(req, res, next){
-	var newSurfer = new Surfer(req.body);
-	newSurfer.save(function(err, newSurfer){
+	var newRepairArtist = new RepairArtist(req.body);
+	newRepairArtist.save(function(err, newRepairArtist){
 		if(err){
 			console.log('Error on the post brah!');
 		}
-		res.json(newSurfer);
+		res.json(newRepairArtist);
 	});
 	
 };
 
 exports.delete = function(req, res, next){
 	//TODO: Need to look up how to remove from MongoDB with Mongoose
-	req.surfer.remove(function(err, surfer){
+	req.repairArtist.remove(function(err, repairArtist){
 		if(err){
 			next(err);
 		}
-		res.json(surfer);
+		res.json(repairArtist);
 	});
 };

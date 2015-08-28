@@ -16,7 +16,8 @@ var envConfig;
 // and fallback to an empty object if it does error out
 
 try{
-	encConfig = require('./' + config.env);
+	//encConfig = require('./' + config.env);
+	envConfig = require('./' + config.env);
 	envConfig = envConfig || {};
 } catch(e){
 	envConfig = {};

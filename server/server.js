@@ -5,6 +5,8 @@ var api = require('./api/api');
 var config = require('./config/config');
 var logger = require('./util/logger');
 
+console.log('Config: ');
+console.log(config);
 require('mongoose').connect(config.db.url);
 
 //TODO: 8/23/15 Seed is always disabled, need to set it up still
@@ -23,7 +25,7 @@ app.use('/api', api);
 
 //Global Error Handling
 
-app.use(fuction(err,req,res,next){
+app.use(function(err,req,res,next){
 	//TODO: 8/23/15 This is for when auth is set up
 	if(err.name === 'UnathorizedError'){
 		res.status(401).send('Invalid token');
