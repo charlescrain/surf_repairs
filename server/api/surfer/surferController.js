@@ -60,11 +60,24 @@ exports.post = function(req, res, next){
 };
 
 exports.delete = function(req, res, next){
-	//TODO: Need to look up how to remove from MongoDB with Mongoose
 	req.surfer.remove(function(err, surfer){
 		if(err){
 			next(err);
 		}
 		res.json(surfer);
 	});
+};
+
+exports.login = function(req, res, next){
+	console.log('trying to log in');
+	console.log(req.body);
+	Surfer.findOne(req.body)
+		.then(function(surfer){
+			// if(surfer.password == req.body.password){
+			// 	res.json(surfer);
+			// }
+			res.json(surfer);
+		}, function(err){
+			next(err);
+		});
 };

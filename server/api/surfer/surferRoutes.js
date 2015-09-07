@@ -14,4 +14,8 @@ router.route('/:id')
 	.put(controller.put)
 	.delete(controller.delete)
 
+router.route('/login')
+	.post(controller.login)
+
+
 module.exports = router;
