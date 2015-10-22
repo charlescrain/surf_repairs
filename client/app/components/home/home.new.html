@@ -1,0 +1,16 @@
+<div class="container" ng-controller="NewCtrl">
+	<form>
+		Title: <input type="text" ng-model="newJob.title"  ><br>
+		Board Dimensions: <br>
+		<div style="padding-left:5%;">
+			Length: <span><input type="text"  ng-model = "newJob.boardDimensions.length"  ></span><br>
+			Width:<span><input type="text"  ng-model = "newJob.boardDimensions.width"  ></span><br>
+			Thickness<span><input type="text"  ng-model = "newJob.boardDimensions.thickness"  ></span><br>
+			Volume:<span><input type="text"  ng-model = "newJob.boardDimensions.volume"  ></span><br>
+		</div>
+		Description: <input type="text" ng-model="newJob.description"><br> 
+		Images: <input type="text" ng-model="newJob.pictures" ng-list><br> 
+		<input type="submit" ng-click="createJob(newJob)" value="save">
+	</form>
+
+</div>

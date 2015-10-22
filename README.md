@@ -1,2 +1,3 @@
 # surf_repairs
-Surfboard ding repair REST API for web/Android/iOS application
+Platform to post job requests to fix surfboard dings
+

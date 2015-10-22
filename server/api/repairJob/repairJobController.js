@@ -36,6 +36,7 @@ exports.put = function(req, res, next){
 	var update = req.body;
 
 	_.merge(repairJob, update);
+	console.log(repairJob);
 	repairJob.save(function(err){
 		if(err){
 			next(err);

@@ -25,11 +25,15 @@ var RepairJobSchema = new Schema({
 			type:String
 		}
 	},
-	// pictures:{
+	description:{
+		type:String,
+		required:true
+	},
+	pictures:{
 
-	// 	 type:[String], validate: [pictureLimit, 'Only 6 pictures can be stored per job'],
-	// 	 required:true
-	// },
+		 type:[String], validate: [pictureLimit, 'Only 6 pictures can be stored per job'],
+		 required:true
+	},
 	// owner:{
 	// 	type: Schema.Types.ObjectId, ref:'Surfer',
 	// 	required:true

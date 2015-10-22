@@ -1,0 +1,15 @@
+<div class="container" ng-controller="JobCtrl">
+
+		Title: <input type="text" ng-model="detailJob.title"  ><br>
+		Board Dimensions:  <br>
+		<div style="padding-left:5%;">
+			Length: <span><input type="text"  ng-model = "detailJob.boardDimensions.length"  ></span><br>
+			Width:<span><input type="text"  ng-model = "detailJob.boardDimensions.width"  ></span><br>
+			Thickness<span><input type="text"  ng-model = "detailJob.boardDimensions.thickness"  ></span><br>
+			Volume:<span><input type="text"  ng-model = "detailJob.boardDimensions.volume"  ></span><br>
+		</div>
+		Description: <input type="text" ng-model="detailJob.description"><br>
+		Images: <picture ng-repeat="pic in detailJob.pictures" url="{{pic}}"> </picture> 		<br>
+		<input type="submit" ng-click="updateJob(detailJob)"> 
+		<input type="submit" ng-click="deleteJob(detailJob)" value="Delete"> 
+</div>
