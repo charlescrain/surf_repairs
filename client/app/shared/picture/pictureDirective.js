@@ -6,7 +6,7 @@ app.directive('picture',['$http',function($http){
 		scope:{},
 		controllerAs:'picture',
 		controller:function($scope){
-			
+			console.log($scope.edit);
 		},
 		link:function(scope, elem, attr){
 			scope.image = attr.url;

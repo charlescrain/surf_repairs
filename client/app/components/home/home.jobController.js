@@ -1,6 +1,7 @@
 var app = angular.module('app');
 
 app.controller('JobCtrl',function($scope,$http,$stateParams,$state){
+	$scope.edit=false;
 	$http.get('http://localhost:3000/api/repair-jobs/'+$scope.selectedJob._id)
 			.then(function(res){
 				$scope.detailJob = res.data;
