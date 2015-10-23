@@ -14,8 +14,10 @@
         "express": "^4.13.1",
         "lodash": "^3.10.0",
         "morgan": "^1.6.1",
-        "mongoose": "^4.0.8",
-        "colors": "^1.1.2"
+        "mongoose": "^4.2.0",
+        "colors": "^1.1.2",
+        "passport":"^0.3.0",
+        "passport-local":"^1.0.0"
     }
 }
 

@@ -2,7 +2,9 @@ var app = angular.module('app');
 
 app.controller('JobCtrl',function($scope,$http,$stateParams,$state){
 	$scope.edit=false;
-	$http.get('http://localhost:3000/api/repair-jobs/'+$scope.selectedJob._id)
+	$scope.imageAdd = false;
+	$scope.newImages = [];
+	$http.get('http://localhost:3000/api/repair-jobs/'+$stateParams.jobId)
 			.then(function(res){
 				$scope.detailJob = res.data;
 				$scope.dimensions = Object.keys($scope.detailJob.boardDimensions);
@@ -11,8 +13,9 @@ app.controller('JobCtrl',function($scope,$http,$stateParams,$state){
 			});
 
 	$scope.updateJob = function(job){
-		console.log('happening');
 		job.completed = false;
+		job.pictures = job.pictures.concat($scope.newImages);
+		console.log($scope.newImages);
 		$http.put('http://localhost:3000/api/repair-jobs/'+job._id,job)
 			.then(function(res){
 				console.log(res);
@@ -30,6 +33,12 @@ app.controller('JobCtrl',function($scope,$http,$stateParams,$state){
 				console.log(error);
 				$state.go('home',{}, {reload:true});
 			});
+	};
+	$scope.changeEdit = function(){
+		$scope.edit = !$scope.edit;
+	};
+	$scope.addImage = function(){
+		$scope.imageAdd = !$scope.imageAdd;
 	};
 
 

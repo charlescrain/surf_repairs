@@ -1,21 +1,25 @@
 <div class="container" ng-controller="JobCtrl">
 
-		Title: <input type="text" ng-model="detailJob.title"  ><br>
+		Title: <input type="text" ng-model="detailJob.title" ng-readonly="!edit" ><br>
 		Board Dimensions:  <br>
 		<div style="padding-left:5%;">
-			Length: <span><input type="text"  ng-model = "detailJob.boardDimensions.length"  ng-readonly="edit"></span><br>
-			Width:<span><input type="text"  ng-model = "detailJob.boardDimensions.width" ng-readonly="edit" ></span><br>
-			Thickness<span><input type="text"  ng-model = "detailJob.boardDimensions.thickness" ng-readonly="edit" ></span><br>
-			Volume:<span><input type="text"  ng-model = "detailJob.boardDimensions.volume" ng-readonly="edit" ></span><br>
+			Length: <span><input type="text"  ng-model = "detailJob.boardDimensions.length"  ng-readonly="!edit"></span><br>
+			Width:<span><input type="text"  ng-model = "detailJob.boardDimensions.width" ng-readonly="!edit" ></span><br>
+			Thickness<span><input type="text"  ng-model = "detailJob.boardDimensions.thickness" ng-readonly="!edit" ></span><br>
+			Volume:<span><input type="text"  ng-model = "detailJob.boardDimensions.volume" ng-readonly="!edit" ></span><br>
 		</div>
-		Description: <input type="text" ng-model="detailJob.description"ng-readonly="edit"><br>
+		Description: <input type="text" ng-model="detailJob.description"ng-readonly="!edit"><br>
 		Images:
 		<div ng-repeat="pic in detailJob.pictures">
-			<img style="width:30%;" ng-src="{{pic}}">  
-			<input type="text" style="width:40%;" ng-model="pic" ng-show="edit">
+			<img style="width:30%;" ng-src="{{detailJob.pictures[$index]}}">  
+			<input type="text" style="width:40%;" ng-model="detailJob.pictures[$index]" ng-show="edit">
 		</div>
+		<img ng-repeat="image in newImages" style="width:30%;" ng-src="{{image}}">  
+		<input type="text"  ng-model="newImages" ng-show="imageAdd" ng-list>
+		<input type="submit" ng-click="addImage()" value="Add Picture" ng-show="edit"> 
+		 <br>
 		<!-- Images: <picture ng-repeat="pic in detailJob.pictures" url="{{pic}}" > </picture> 		<br> -->
-		<input type="submit" ng-click="edit=!edit" value="Edit" ng-model="edit">
+		<input type="submit" ng-click="changeEdit()" value="Edit" ng-model="edit">
 		<input type="submit" ng-click="updateJob(detailJob)" ng-show="edit"> 
 		<input type="submit" ng-click="deleteJob(detailJob)" value="Delete"> 
 </div>

@@ -1,7 +1,7 @@
 var app = angular.module('app',['ui.router']);
 
 app.config(function($stateProvider, $urlRouterProvider){
-	$urlRouterProvider.otherwise('/home');
+	$urlRouterProvider.otherwise('/register');
 
 	$stateProvider
 		.state('home',{
@@ -16,6 +16,10 @@ app.config(function($stateProvider, $urlRouterProvider){
 		.state('new',{
 			url:'/new',
 			templateUrl:'app/components/home/home.new.html'
+		})
+		.state('register',{
+			url:'/register',
+			templateUrl:'app/components/register/register.html'
 		});
 
 		

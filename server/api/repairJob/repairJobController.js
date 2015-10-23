@@ -34,13 +34,15 @@ exports.getOne = function(req, res, next){
 exports.put = function(req, res, next){
 	var repairJob = req.repairJob;
 	var update = req.body;
-
 	_.merge(repairJob, update);
-	console.log(repairJob);
+
+	//Arrays are not flagged as changed by Mongoose need to do so manually
+	repairJob.markModified('pictures');
 	repairJob.save(function(err){
 		if(err){
 			next(err);
 		}
+
 		res.json(repairJob);
 	});
 	//TODO: 8/25/15 Will need to check if password was changed

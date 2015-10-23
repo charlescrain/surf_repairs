@@ -1,18 +1,11 @@
 'use-strict';
 
-angular
-    .module('app')
-    .controller('RegisterController', RegisterController);
-RegisterController.$inject = ['$http','$location'];
+app = angular.module('app');
 
-function RegisterController($http, $location){
+
+app.controller('RegisterCtrl', function RegisterController($http, $location){
     var registerController = this;
     registerController.register = register;
-
-
-    (function initController(){
-        console.log('Now initializaing the controller');
-    })();
 
     function register(){
         registerController.dataLoading = true;
@@ -33,4 +26,7 @@ function RegisterController($http, $location){
         //         console.log(res);
         //     });
     }
-}
+});
+
+
+
