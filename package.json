@@ -17,7 +17,10 @@
         "mongoose": "^4.2.0",
         "colors": "^1.1.2",
         "passport":"^0.3.0",
-        "passport-local":"^1.0.0"
+        "passport-local":"^1.0.0",
+        "bcrypt-nodejs":"^0.0.3",
+        "connect-mongo":"^0.8.2",
+        "express-session":"^1.12.0"
     }
 }
 

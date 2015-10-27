@@ -3,22 +3,21 @@
 app = angular.module('app');
 
 
-app.controller('RegisterCtrl', function RegisterController($http, $location){
-    var registerController = this;
-    registerController.register = register;
-
+app.controller('RegisterCtrl', function RegisterController($scope,$http){
+    $scope.register = register;
+    console.log('yo');
     function register(){
-        registerController.dataLoading = true;
-        console.log('username is: '  + registerController.username);
+        $scope.dataLoading = true;
+        console.log('username is: '  + $scope.username);
         surfer = {
-            name:registerController.name,
-            username:registerController.username, 
-            password:registerController.password,
-            email:registerController.email
+            name:$scope.name,
+            username:$scope.username, 
+            password:$scope.password,
+            email:$scope.email
         }
         $http.post('http://localhost:3000/api/surfers/', surfer)
             .success(function(res){
-                // registerController.newUser.username
+                // $scope.newUser.username
                 console.log(res);
             });
         // $http.get('http://localhost:3000/api/surfers/')

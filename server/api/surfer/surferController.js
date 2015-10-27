@@ -1,7 +1,25 @@
 var Surfer = require('./surferModel');
 var _ = require('lodash');
+var bCrypt = require('bcrypt-nodejs');
+// var passport = require('passport')
+//   , LocalStrategy = require('passport-local').Strategy;
 
 
+// passport.use(new LocalStrategy(
+// 	function(username, password, done) {
+// 		Surfer.findOne({ username: username }, function(err, surfer) {
+// 			if (err) { return done(err); }
+// 			if (!surfer) {
+// 				return done(null, false, { message: 'Incorrect username.' });
+// 			}
+// 			if (!surfer.validPassword(password)) {
+// 				return done(null, false, { message: 'Incorrect password.' });
+// 			}
+// 			console.log(surfer);
+// 			return done(null, surfer);
+// 		});
+// 	}
+// ));
 
 //TODO: 8/23/15 Auth not happening as of yet
 //var signToken = require('../../auth/auth').signToken;
@@ -21,6 +39,7 @@ exports.params = function(req, res, next, id){
 };
 
 exports.get = function(req, res, next) {
+	
 	Surfer.find({})
 		.then(function(surfers){
 			res.json(surfers);
@@ -52,12 +71,24 @@ exports.put = function(req, res, next){
 
 exports.post = function(req, res, next){
 	var newSurfer = new Surfer(req.body);
-	newSurfer.save(function(err, newSurfer){
-		if(err){
-			console.log('Error on the post brah!');
-		}
-		res.json(newSurfer);
+	bCrypt.genSalt(10, function(error, salt){
+		bCrypt.hash(newSurfer.password,salt, function(){}, function(error,hash){
+			console.log(hash,error);
+			if(error){
+				console.log('Error in the hash');
+				// next(error);
+			}
+			newSurfer.password = hash;
+			newSurfer.save(function(err, newSurfer){
+				if(err){
+					console.log('Error on the post brah!');
+					// next(err);
+				}
+				res.json(newSurfer);
+			});
+		})
 	});
+	
 	
 };
 
@@ -71,15 +102,32 @@ exports.delete = function(req, res, next){
 };
 
 exports.login = function(req, res, next){
-	console.log('trying to log in');
-	console.log(req.body);
-	Surfer.findOne(req.body)
+	console.log(req.body.username);
+	Surfer.findOne({username:req.body.username})
 		.then(function(surfer){
-			// if(surfer.password == req.body.password){
+			console.log(surfer);
+			bCrypt.compare(req.body.password, surfer.password, function(error, result){
+				if(error){
+					console.log(error);
+					next(error);
+				}
+				if(result){
+					res.json('Success');
+				}else{
+					res.sendStatus(401);
+				}
+			});
+
+			// if(!surfer.validPassword(req.body.password)){
+			// 	res.sendStatus(401);
+			// }else{
+			// 	console.log('yay',surfer)
 			// 	res.json(surfer);
 			// }
-			res.json(surfer);
 		}, function(err){
 			next(err);
 		});
 };
+// exports.login = passport.authenticate('local',function(req,res){
+// 	console.log(res);
+
