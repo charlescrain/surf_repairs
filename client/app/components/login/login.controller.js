@@ -4,7 +4,7 @@ angular
     .module('app')
     .controller('LoginCtrl',LoginController);
 
-function LoginController($scope, $http){
+function LoginController($scope, $http, $state){
     console.log('hey!');
     $scope.username ='';
     $scope.password = '';
@@ -18,9 +18,10 @@ function LoginController($scope, $http){
         //         // $scope.userIn.username
         //         console.log(res);
         //     });
-        $http.post('http://localhost:3000/api/surfers/login',surfer)
+        $http.post('http://localhost:3000/auth',surfer)
             .success(function(res){
                 console.log(res);
+                $state.go('home',{}, {reload:true});
             });
     }
 }

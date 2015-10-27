@@ -3,7 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
 var api = require('./api/api');
-//var client = require('./client/app');
+var auth = require('./auth/auth');
 var config = require('./config/config');
 var logger = require('./util/logger');
 
@@ -15,6 +15,7 @@ require('mongoose').connect(config.db.url);
 if(config.seed){
 	require('./util/seed');
 }
+app.set('secretKey',config.secret);
 
 // BEWARE: 9/1/2015 May need this for CORS
 app.all('*', function(req, res, next) {
@@ -29,6 +30,7 @@ require('./middleware/appMiddleware')(app);
 
 //setup api
 app.use('/api', api);
+app.use('/auth',auth);
 
 //Serve static files for frontend
 app.use('/', express.static('client'));
