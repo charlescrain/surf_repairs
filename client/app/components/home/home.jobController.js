@@ -21,7 +21,7 @@ app.controller('JobCtrl',function($scope,$http,$stateParams,$state){
 				console.log(res);
 				$state.go('home',{}, {reload:true});
 			}, function(error){
-				$state.go('home',{}, {reload:true});
+				$state.go('login',{}, {reload:true});
 			});
 	};
 	$scope.deleteJob = function(job){
@@ -31,7 +31,7 @@ app.controller('JobCtrl',function($scope,$http,$stateParams,$state){
 				$state.go('home',{}, {reload:true});
 			}, function(error){
 				console.log(error);
-				$state.go('home',{}, {reload:true});
+				$state.go('login',{}, {reload:true});
 			});
 	};
 	$scope.changeEdit = function(){

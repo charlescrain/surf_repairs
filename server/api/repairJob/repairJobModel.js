@@ -34,10 +34,10 @@ var RepairJobSchema = new Schema({
 		 type:[String], validate: [pictureLimit, 'Only 6 pictures can be stored per job'],
 		 required:true
 	},
-	// owner:{
-	// 	type: Schema.Types.ObjectId, ref:'Surfer',
-	// 	required:true
-	// }
+	owner:{
+		type: Schema.Types.ObjectId, ref:'Surfer',
+		required:true
+	}
 
 	//TODO: 8/28/15 Need Bid Schema setup
 	//currentBids:{}

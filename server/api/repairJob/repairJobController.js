@@ -1,5 +1,7 @@
 var RepairJob = require('./repairJobModel');
 var _ = require('lodash');
+var config = require('../../config/config');
+var jwt    = require('jsonwebtoken');
 
 exports.params = function(req, res, next, id){
 	RepairJob.findById(id)
@@ -39,33 +41,55 @@ exports.put = function(req, res, next){
 	//Arrays are not flagged as changed by Mongoose need to do so manually
 	repairJob.markModified('pictures');
 	repairJob.save(function(err){
-		if(err){
-			next(err);
+		if( err ){
+			next( err );
 		}
 
-		res.json(repairJob);
+		res.json( repairJob );
 	});
 	//TODO: 8/25/15 Will need to check if password was changed
 };
 
-exports.post = function(req, res, next){
-	var newRepairJob = new RepairJob(req.body);
-	console.log('here!');
-	newRepairJob.save(function(err, newRepairJob){
-		if(err){
-			console.log('Error on the post brah!');
-		}
-		res.json(newRepairJob);
-	});
+exports.post = function( req, res, next ) {
+	if ( req.cookies.token ) {
+		jwt.verify( req.cookies.token, config.secret, function( err, result ) {
+			console.log( err, result );
+			if ( err ) {
+				res.json( { success:false, message:"error on verify" } );
+			} else {
+				req.body.owner = result._id;
+				var newRepairJob = new RepairJob( req.body);
+				newRepairJob.save(function( err, newRepairJob ){
+					if(err){
+						console.log('Error on the post brah!');
+					}
+					res.json( { success:false, newJob:newRepairJob } );
+				} );
+			}
+		} );
+	} else {
+		res.json( { success:false, message:"no cookie" } );
+	}
+		
+	
 	
 };
 
-exports.delete = function(req, res, next){
+exports.delete = function( req, res, next ){
 	//TODO: Need to look up how to remove from MongoDB with Mongoose
-	req.repairJob.remove(function(err, repairJob){
-		if(err){
-			next(err);
-		}
-		res.json(repairJob);
-	});
+	if( req.cookies.token ) {
+		jwt.verify( req.cookies.token, config.secret, function( err, result ) { 
+			if ( err ) {
+				res.json( { success:false, message:"error on verify" } );
+			} else { 
+				req.repairJob.remove( function( err, repairJob ) {
+					if( err ){
+						next( err );
+					}
+					res.json( repairJob );
+				} );			
+			}
+		} );
+	}
+	
 };

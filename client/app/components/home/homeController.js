@@ -1,8 +1,9 @@
-var app = angular.module('app');
+var app = angular.module( 'app' );
 
-app.controller('HomeCtrl',function($scope,$http){
+app.controller( 'HomeCtrl', function( $scope, $http )  {
+
 	$scope.selectedJob = {};
-	$scope.chooseJob = function(selection){
+	$scope.chooseJob = function( selection ){
 		$scope.selectedJob =selection;
 		console.log(selection);
 	};

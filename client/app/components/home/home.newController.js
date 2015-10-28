@@ -1,6 +1,6 @@
 var app = angular.module('app');
 
-app.controller('NewCtrl',function($scope,$http,$state){
+app.controller('NewCtrl',function($scope,$http, $state){
 	$scope.newJob = {};
 	$scope.createJob = function (newJob){
 		newJob.completed = false;
@@ -10,6 +10,7 @@ app.controller('NewCtrl',function($scope,$http,$state){
 				$state.go('home',{}, {reload:true});
 			}, function(error){
 				console.log(error);
+				state.go('login',{}, {reload:true});
 			});
 			
 	}

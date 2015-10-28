@@ -9,6 +9,7 @@ var jwt    = require('jsonwebtoken');
 router.post('/', function(req, res, next){
 	Surfer.findOne({username:req.body.username})
 		.then(function(surfer){
+			console.log(surfer, req.body);
 			bCrypt.compare(req.body.password, surfer.password, function(error, result){
 				if(error){
 					console.log(error);
