@@ -2,6 +2,7 @@ var router = require('express').Router();
 var logger = require('../../util/logger');
 var controller = require('./repairJobController');
 
+router.use(controller.verifyToken);
 router.param('id', controller.params);
 
 router.route('/')

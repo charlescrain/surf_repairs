@@ -3,6 +3,24 @@ var _ = require('lodash');
 var config = require('../../config/config');
 var jwt    = require('jsonwebtoken');
 
+exports.verifyToken = function( req, res, next ) {
+	if ( req.cookies.token ) {
+		jwt.verify( req.cookies.token, config.secret, function( err, result ) {
+			if ( err ) {
+				res.statusCode = 401;
+				res.json( { success:false, message:"error on verify" } );
+			} else {
+				req.owner = result._id;
+				next();
+			}
+		});
+	} else {
+		res.statusCode = 401;
+		res.json( { success:false, message:"cookie expired" } );
+	}
+}
+
+
 exports.params = function(req, res, next, id){
 	RepairJob.findById(id)
 		.then(function(repairJob){
@@ -18,8 +36,9 @@ exports.params = function(req, res, next, id){
 };
 
 exports.get = function(req, res, next) {
-	RepairJob.find({})
+	RepairJob.find({owner:req.owner})
 		.then(function(repairJobs){
+			console.log(repairJobs);
 			res.json(repairJobs);
 		},function (err){
 			console.log(err);
@@ -51,45 +70,21 @@ exports.put = function(req, res, next){
 };
 
 exports.post = function( req, res, next ) {
-	if ( req.cookies.token ) {
-		jwt.verify( req.cookies.token, config.secret, function( err, result ) {
-			console.log( err, result );
-			if ( err ) {
-				res.json( { success:false, message:"error on verify" } );
-			} else {
-				req.body.owner = result._id;
-				var newRepairJob = new RepairJob( req.body);
-				newRepairJob.save(function( err, newRepairJob ){
-					if(err){
-						console.log('Error on the post brah!');
-					}
-					res.json( { success:false, newJob:newRepairJob } );
-				} );
-			}
-		} );
-	} else {
-		res.json( { success:false, message:"no cookie" } );
-	}
-		
-	
-	
+	req.body.owner = req.owner;
+	var newRepairJob = new RepairJob( req.body);
+	newRepairJob.save(function( err, newRepairJob ){
+		if(err){
+			console.log('Error on the post brah!');
+		}
+		res.json( { success:false, newJob:newRepairJob } );
+	} );
 };
 
 exports.delete = function( req, res, next ){
-	//TODO: Need to look up how to remove from MongoDB with Mongoose
-	if( req.cookies.token ) {
-		jwt.verify( req.cookies.token, config.secret, function( err, result ) { 
-			if ( err ) {
-				res.json( { success:false, message:"error on verify" } );
-			} else { 
-				req.repairJob.remove( function( err, repairJob ) {
-					if( err ){
-						next( err );
-					}
-					res.json( repairJob );
-				} );			
-			}
-		} );
-	}
-	
+	req.repairJob.remove( function( err, repairJob ) {
+		if( err ){
+			next( err );
+		}
+		res.json( repairJob );
+	} );			
 };

@@ -20,7 +20,7 @@ router.post('/', function(req, res, next){
 						expiresIn:60,
 					});
 					console.log(res.cookie);
-					res.cookie('token',token , {maxAge:180000});
+					res.cookie('token',token , {maxAge:10000});
 					res.json({success:true, token:token});
 				}else{
 					res.json({succes:false});
