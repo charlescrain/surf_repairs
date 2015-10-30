@@ -14,7 +14,7 @@
         </div>
         <div class="form-actions">
             <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-primary">Login</button>
-            <a href="#/register.{{endpoint}}" class="btn btn-link">Register</a>
+            <a  ng-click="goRegister()" class="btn btn-link">Register</a>
         </div>
         {{endpoint}}
         <br><br>

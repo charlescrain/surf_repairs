@@ -28,9 +28,15 @@ function LoginController( $scope, $http, $state ){
         $http.post( 'http://localhost:3000/auth/' + $scope.endpoint , user)
             .then(function( res ){
                 console.log( res );
-                $state.go( 'home', {}, { reload:true } );
+                console.log('home.'+$scope.endpoint);
+                $state.go( 'home.'+$scope.endpoint, {}, { reload:true } );
             }, function( error ){
                 $state.reload();
             });
-    }
+    };
+
+    $scope.goRegister = function (){
+    	console.log('not sure what is ahppning')
+	$state.go( 'register.' + $scope.endpoint, {}, { reload:true } );
+    };
 }

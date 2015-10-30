@@ -1,6 +1,6 @@
 var RepairArtist = require('./repairArtistModel');
 var _ = require('lodash');
-
+var bCrypt = require('bcrypt-nodejs');
 
 exports.params = function(req, res, next, id){
 	RepairArtist.findById(id)
@@ -48,11 +48,22 @@ exports.put = function(req, res, next){
 
 exports.post = function(req, res, next){
 	var newRepairArtist = new RepairArtist(req.body);
-	newRepairArtist.save(function(err, newRepairArtist){
-		if(err){
-			console.log('Error on the post brah!');
-		}
-		res.json(newRepairArtist);
+	bCrypt.genSalt(10, function(error, salt){
+		bCrypt.hash(newRepairArtist.password,salt, function(){}, function(error,hash){
+			console.log(hash,error);
+			if(error){
+				console.log('Error in the hash');
+				// next(error);
+			}
+			newRepairArtist.password = hash;
+			newRepairArtist.save(function(err, newRepairArtist){
+				if(err){
+					console.log('Error on the post brah!');
+					// next(err);
+				}
+				res.json(newRepairArtist);
+			});
+		})
 	});
 	
 };

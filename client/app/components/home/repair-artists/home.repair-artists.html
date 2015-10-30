@@ -1,0 +1,21 @@
+
+<h1>Artists Homes</h1>
+<tabset>
+			<tab heading="Open Jobs">
+				<div ng-controller="HomeRepairJobCtrl">
+					<ul  style="list-style:none;">
+						<li ng-repeat="job in jobs"><a ui-sref=".job({jobId:job._id})" ng-click="chooseJob(job)"> <img style="width:10%;" ng-src="{{job.pictures[0]}}"></a>{{job.title}} -- {{job.completed}} -- {{job.boardDimensions.length}}</li>
+					</ul>
+					<div ui-view></div>
+				</div>
+			</tab>
+			<tab heading="My Current Bids" >
+				<div ng-controller="HomeRepairBidCtrl">
+					<ul  style="list-style:none;">
+						<li ng-repeat="bid in bids"><a ui-sref="temp" ng-click="chooseBid(bid)"> <img style="width:10%;" ng-src="{{job.pictures[0]}}"></a>{{job.title}} -- {{job.completed}} -- {{job.boardDimensions.length}}</li>
+					</ul>
+					<div ui-view></div>
+				</div>
+			</tab>
+			</div>
+</tabset>	

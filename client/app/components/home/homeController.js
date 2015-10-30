@@ -1,22 +1,13 @@
 var app = angular.module( 'app' );
 
-app.controller( 'HomeCtrl', function( $scope, $http, $state )  {
-	$scope.jobs = [];
-	$scope.selectedJob = {};
-
-	$scope.chooseJob = function( selection ){
-		$scope.selectedJob =selection;
-		console.log( selection );
-	};
-
-	$http.get( 'http://localhost:3000/api/repair-jobs' ).then( function( result ){
-			$scope.jobs = result.data;
-			console.log( result.data );
-		}, function( error ){
-			console.log( error );
-			$scope.jobs = [];
-			if(error.status === 401){
-				$state.go( 'splash',{}, { reload:true } );
-			}
-		});
+app.controller( 'HomeCtrl', function( $cookies, $state )  {
+	if($state.current.name === 'home'){
+		if( $cookies.get('userType') === 'surfer' ) {
+			$state.go( 'home.surfers', {}, {reload:true} );
+		} else if( $cookies.get('userType') === 'repair-artist' ) {
+			$state.go( 'home.repair-artists', {}, {reload:true} );
+		} else {
+			$state.go( 'splash', {}, {reload:true} );
+		}
+	}
 });

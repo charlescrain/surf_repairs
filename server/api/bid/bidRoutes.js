@@ -1,11 +1,6 @@
 var router = require('express').Router();
 var logger = require('../../util/logger');
-var controller = require('./repairJobController');
-
-//Public Routes
-router.route('/open')
-	.get(controller.getOpen)
-
+var controller = require('./bidController');
 
 //Authenticated Routes
 router.use(controller.verifyToken);

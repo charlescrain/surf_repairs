@@ -23,7 +23,7 @@
             <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
         </div>
         <div class="form-actions">
-            <a href="#/login.{{endpoint}}" class="btn btn-link">Login</a>
+            <a href="" ng-click="goLogin()" class="btn btn-link">Login</a>
             <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-primary">Register</button>
         </div>
         <br><br>

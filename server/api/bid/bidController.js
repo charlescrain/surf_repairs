@@ -1,13 +1,13 @@
-var RepairJob = require('./repairJobModel');
+var Bid = require('./bidModel');
 var _ = require('lodash');
 var config = require('../../config/config');
 var jwt    = require('jsonwebtoken');
 
 exports.getOpen = function( req, res, next ) {
-	RepairJob.find({completed:false})
-		.then(function(repairJobs){
-			console.log(repairJobs);
-			res.json(repairJobs);
+	Bid.find({completed:false})
+		.then(function(bids){
+			console.log(bids);
+			res.json(bids);
 		},function (err){
 			console.log(err);
 			next(err);
@@ -33,12 +33,12 @@ exports.verifyToken = function( req, res, next ) {
 
 
 exports.params = function(req, res, next, id){
-	RepairJob.findById(id)
-		.then(function(repairJob){
-			if(!repairJob) {
-				next(new Error('No repairJob by that id'))
+	Bid.findById(id)
+		.then(function(bid){
+			if(!bid) {
+				next(new Error('No bid by that id'))
 			} else {
-				req.repairJob = repairJob;
+				req.bid = bid;
 				next();
 			}
 		}, function(err) {
@@ -47,10 +47,10 @@ exports.params = function(req, res, next, id){
 };
 
 exports.get = function(req, res, next) {
-	RepairJob.find({owner:req.owner})
-		.then(function(repairJobs){
-			console.log(repairJobs);
-			res.json(repairJobs);
+	Bid.find({owner:req.owner})
+		.then(function(bids){
+			console.log(bids);
+			res.json(bids);
 		},function (err){
 			console.log(err);
 			next(err);
@@ -59,43 +59,41 @@ exports.get = function(req, res, next) {
 
 exports.getOne = function(req, res, next){
 	// .params handle DB req with ID
-	var repairJob = req.repairJob;
-	res.json(repairJob);
+	var bid = req.bid;
+	res.json(bid);
 };
 
 exports.put = function(req, res, next){
-	var repairJob = req.repairJob;
+	var bid = req.bid;
 	var update = req.body;
-	_.merge(repairJob, update);
+	_.merge(bid, update);
 
-	//Arrays are not flagged as changed by Mongoose need to do so manually
-	repairJob.markModified('pictures');
-	repairJob.save(function(err){
+	bid.save(function(err){
 		if( err ){
 			next( err );
 		}
 
-		res.json( repairJob );
+		res.json( bid );
 	});
 	//TODO: 8/25/15 Will need to check if password was changed
 };
 
 exports.post = function( req, res, next ) {
 	req.body.owner = req.owner;
-	var newRepairJob = new RepairJob( req.body);
-	newRepairJob.save(function( err, newRepairJob ){
+	var newBid = new Bid( req.body);
+	newBid.save(function( err, newBid ){
 		if(err){
 			console.log('Error on the post brah!');
 		}
-		res.json( { success:false, newJob:newRepairJob } );
+		res.json( { success:false, newBid:newBid } );
 	} );
 };
 
 exports.delete = function( req, res, next ){
-	req.repairJob.remove( function( err, repairJob ) {
+	req.bid.remove( function( err, bid ) {
 		if( err ){
 			next( err );
 		}
-		res.json( repairJob );
+		res.json( bid );
 	} );			
 };

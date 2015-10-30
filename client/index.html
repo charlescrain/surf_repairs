@@ -7,19 +7,25 @@
 	</head>
 	<body ng-app="app">
 		<div ></div>
-		<a ui-sref="home" style="cursor:pointer;">Home</a>
+		<a ui-sref="home" ui-sref-opts="{reload:true}" style="cursor:pointer;">Home</a>
 		<div ui-view ></div>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.0/angular.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.0/angular-cookies.js"></script>
 
 		<script src="app/app.js"></script>
 				<script src="app/components/home/homeController.js"></script>
-				<script src="app/components/home/home.jobController.js"></script>
+				<script src="app/components/home/surfers/home.surfersController.js"></script>
+				<script src="app/components/home/repair-artists/home.repairArtists.BidTabController.js"></script>
+				<script src="app/components/home/repair-artists/home.repairArtists.JobTabController.js"></script>
+				<script src="app/components/home/repair-artists/home.repairArtists.jobController.js"></script>
+				<script src="app/components/home/repair-artists/home.repairArtists.bidController.js"></script>
+				<script src="app/components/home/surfers/home.surfers.jobController.js"></script>
 				<script src="app/components/newJob/newJobController.js"></script>
-				
+				<script src="app/shared/tabs/tabsDirective.js"></script>
 				<script src="app/shared/login/loginDirective.js"></script>
-				<script src="app/components/register/register.controller.js"></script>
+				<script src="app/shared/register/registerDirective.js"></script>
 				<script src="app/shared/picture/pictureDirective.js"></script>
 	</body>
 </html>

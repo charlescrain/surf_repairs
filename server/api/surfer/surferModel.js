@@ -8,6 +8,7 @@ var SurferSchema = new Schema({
 	},
 	username: {
 		type:String,
+		unique:true,
 		required: true
 	},
 	password: {
@@ -16,7 +17,8 @@ var SurferSchema = new Schema({
 	},
 	email: {
 		type: String,
-		required: true
+		required: true,
+		unique:true
 	}
 });
 

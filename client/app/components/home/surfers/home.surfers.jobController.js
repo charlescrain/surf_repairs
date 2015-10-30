@@ -1,6 +1,6 @@
 var app = angular.module('app');
 
-app.controller('JobCtrl',function($scope,$http,$stateParams,$state){
+app.controller('SurferJobCtrl',function($scope,$http,$stateParams,$state){
 	$scope.edit=false;
 	$scope.imageAdd = false;
 	$scope.newImages = [];

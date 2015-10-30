@@ -1,9 +1,6 @@
 
 <div class="container" ng-controller="HomeCtrl">
-	<ul  style="list-style:none;">
-		<li ng-repeat="job in jobs"><a ui-sref=".job({jobId:job._id})" ng-click="chooseJob(job)"> <img style="width:10%;" ng-src="{{job.pictures[0]}}"></a>{{job.title}} -- {{job.completed}} -- {{job.boardDimensions.length}}</li>
-	</ul>
-	<a ui-sref="new" style="cursor:pointer;">Create new Job</a>
+	<h2>Need to Make logout button</h2>
 	<div ui-view></div>
 	
 </div>
