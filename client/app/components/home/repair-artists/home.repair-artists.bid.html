@@ -1,0 +1,16 @@
+<div ng-controller="RepairArtistBidCtrl">
+		<h2>Bid for Job: {{selectedBid.job.title}}</h2>
+		Board Dimensions:  <br>
+		<div style="padding-left:5%;">
+			Length: <span><input type="text"  ng-model = "selectedBid.job.boardDimensions.length"  ng-readonly="true"></span><br>
+			Width:<span><input type="text"  ng-model = "selectedBid.job.boardDimensions.width" ng-readonly="true" ></span><br>
+			Thickness<span><input type="text"  ng-model = "selectedBid.job.boardDimensions.thickness" ng-readonly="true" ></span><br>
+			Volume:<span><input type="text"  ng-model = "selectedBid.job.boardDimensions.volume" ng-readonly="true" ></span><br>
+		</div>
+		Description: <input type="text" ng-model="selectedBid.job.description"ng-readonly="true"><br>
+		Images:
+		<div ng-repeat="pic in selectedBid.job.pictures">
+			<img style="width:30%;" ng-src="{{selectedBid.job.pictures[$index]}}">  
+			
+		</div>
+</div>

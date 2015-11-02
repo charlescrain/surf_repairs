@@ -12,6 +12,7 @@ app.controller('SurferJobCtrl',function($scope,$http,$stateParams,$state){
 				console.log(error);
 			});
 
+
 	$scope.updateJob = function(job){
 		job.completed = false;
 		job.pictures = job.pictures.concat($scope.newImages);

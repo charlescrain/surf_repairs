@@ -15,4 +15,7 @@ router.route('/:id')
 	.put(controller.put)
 	.delete(controller.delete)
 
+router.route('by-job')
+	.get(controller.getByJob)
+
 module.exports = router;

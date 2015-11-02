@@ -16,7 +16,7 @@
 		</div>
 		 <br>
 		<input type="currency"  ng-model="bidCost" ng-show="bidding">
-		<input type="submit" ng-click="makeBid()" value="Submit Bid" ng-show="bidding"> 
+		<input type="submit" ng-click="makeBid(bidCost)" value="Submit Bid" ng-show="bidding"> 
 		<input type="submit" ng-click="bidding=true" value="Make Bid" ng-show="!bidding"> 
 
 		

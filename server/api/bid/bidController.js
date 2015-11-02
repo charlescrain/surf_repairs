@@ -95,5 +95,9 @@ exports.delete = function( req, res, next ){
 			next( err );
 		}
 		res.json( bid );
-	} );			
+	} );	
+
+};
+exports.getByJob = function( req, res, next ){
+	
 };

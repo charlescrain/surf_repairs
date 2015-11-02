@@ -19,7 +19,7 @@
         "bcrypt-nodejs":"^0.0.3",
         "connect-mongo":"^0.8.2",
         "jsonwebtoken":"5.4.1",
-        "cookie-parser":"1.4.0"
+        "cookie-parser":"1.4.0",
     }
 }
 

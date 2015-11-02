@@ -23,7 +23,7 @@ var app = angular.module('app')
 			templateUrl:'app/shared/tabs/tabset.html',
 			bindToController:true,
 			controllerAs:'tabset',
-			controller:function(){
+			controller:function($scope, $state){
 				var self = this;
 				self.tabs=[];
 				self.addTab = function(tab){
@@ -39,7 +39,12 @@ var app = angular.module('app')
 						}
 					})
 					selectedTab.active=true;
+					$state.go($scope.state);
 				}
+			},
+			link:function(scope, elem, attrs) {
+				scope.state = attrs.stateUrl;
+				console.log(attrs);
 			}
 		}
 	});

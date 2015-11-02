@@ -3,7 +3,7 @@ var app = angular.module('app');
 app.controller('HomeRepairJobCtrl',function($scope,$http,$state){
 	$scope.jobs = [];
 	$scope.selectedJob = {};
-	console.log('here');
+	console.log('JobTab');
 	$scope.chooseJob = function( selection ){
 		$scope.selectedJob =selection;
 	};
